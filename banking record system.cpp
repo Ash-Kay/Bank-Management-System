@@ -20,6 +20,7 @@ public:
     void edit_rec();
     void delete_rec();
 };
+
 void account_query::read_data()
 {
     cout<<"\nEnter Account Number: ";
@@ -146,7 +147,8 @@ int main()
 {
     account_query A;
     int choice;
-    cout<<"***Acount Information System***"<<endl;
+    cout<<"---------------------------------"<<endl ; ;
+    cout<<"***Account Information System***"<<endl;
     while(true)
     {
         cout<<"Select one option below ";
@@ -155,10 +157,11 @@ int main()
         cout<<"\n\t3-->Search Record from file";
         cout<<"\n\t4-->Update Record";
         cout<<"\n\t5-->Delete Record";
-        cout<<"\n\t6-->Quit";
+        cout<<"\n\t6-->Quit"<<endl;
+        cout<<"---------------------------------" ;
         cout<<"\nEnter your choice: ";
         cin>>choice;
-        system("clear");
+       
         switch(choice)
         {
         case 1:
