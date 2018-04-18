@@ -2,6 +2,7 @@
 #include<fstream>
 #include<cstdlib>
 #include<stdlib.h>
+#include<string.h>
 using namespace std;
 
 class account_query
@@ -80,11 +81,25 @@ void account_query::search_rec()
     infile.seekg(0,ios::end);
     int count = infile.tellg()/sizeof(*this);
     cout<<"\n There are "<<count<<" record in the file";
-    cout<<"\n Enter Record Number to Search: ";
-    cin>>n;
-    infile.seekg((n-1)*sizeof(*this));
+    char acc[20];
+	cout<<"\n Enter account Number to Search: ";
+    cin>>acc;
+	n=1;
+		infile.seekg((n-1)*sizeof(*this));
     infile.read(reinterpret_cast<char*>(this), sizeof(*this));
-    show_data();
+    while(n<=count){
+	if( strcmp(acc,account_number)==0){
+    	show_data();
+    	break;
+	}else{
+		n++;
+		if(n>count)
+		cout<<"wrong account number \n";
+			infile.seekg((n-1)*sizeof(*this));
+    infile.read(reinterpret_cast<char*>(this), sizeof(*this));
+	}
+
+}
 }
 void account_query::edit_rec()
 {
