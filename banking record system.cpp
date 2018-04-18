@@ -103,7 +103,7 @@ void account_query::search_rec()
 }
 void account_query::edit_rec()
 {
-    int n;
+    char acc[20];
     fstream iofile;
     iofile.open("record.bank", ios::in|ios::binary);
     if(!iofile)
@@ -114,11 +114,15 @@ void account_query::edit_rec()
     iofile.seekg(0, ios::end);
     int count = iofile.tellg()/sizeof(*this);
     cout<<"\n There are "<<count<<" record in the file";
-    cout<<"\n Enter Record Number to edit: ";
-    cin>>n;
+    cout<<"\n Enter account Number to edit: ";
+    cin>>acc;
+    int n=1;
     iofile.seekg((n-1)*sizeof(*this));
     iofile.read(reinterpret_cast<char*>(this), sizeof(*this));
-    cout<<"Record "<<n<<" has following data"<<endl;
+    
+      while(n<=count){
+	if( strcmp(acc,account_number)==0){
+    cout<<"account "<<acc<<" has following data"<<endl;
     show_data();
     iofile.close();
     iofile.open("record.bank", ios::out|ios::in|ios::binary);
@@ -126,6 +130,15 @@ void account_query::edit_rec()
     cout<<"\nEnter data to Modify "<<endl;
     read_data();
     iofile.write(reinterpret_cast<char*>(this), sizeof(*this));
+    	break;
+	}else{
+		n++;
+		if(n>count)
+		cout<<"wrong account number \n";
+	 iofile.seekg((n-1)*sizeof(*this));
+    iofile.read(reinterpret_cast<char*>(this), sizeof(*this));
+	}
+}
 }
 void account_query::delete_rec()
 {
